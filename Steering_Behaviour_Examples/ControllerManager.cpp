@@ -22,7 +22,11 @@ void sbe::ControllerManager::update(sf::RenderWindow& window)
 				if (typeid(*object) == typeid(Unit))
 				{
 					auto unit = std::dynamic_pointer_cast<Unit>(object);
-					unit->setTarget(sf::Vector2f(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y));
+					if (unit->getTargetMode() == 0)
+					{
+						unit->setTarget(
+							sf::Vector2f(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y));
+					}
 				}
 			}
 			break;
@@ -36,6 +40,17 @@ void sbe::ControllerManager::update(sf::RenderWindow& window)
 					{
 						auto unit = std::dynamic_pointer_cast<Unit>(object);
 						unit->nextMode();
+					}
+				}
+			}
+			else if (event.key.code == sf::Keyboard::LAlt)
+			{
+				for (auto object : modelManager.getUpdatableObjects())
+				{
+					if (typeid(*object) == typeid(Unit))
+					{
+						auto unit = std::dynamic_pointer_cast<Unit>(object);
+						unit->nextTargetMode();
 					}
 				}
 			}

@@ -12,11 +12,30 @@ namespace sbe
 	private:
 		sf::Vector2f velocity;
 		double maxVelocity;
+
 		sf::Vector2f target;
+
 		double mass;
 		double slowingRadius;
+
 		int mode;
 		const int maxMode = 1;
+
+		int targetMode;
+		const int maxTargetMode = 2;
+		sf::Clock randomTargetClock;
+
+		double wanderAngle;
+
+	public:
+		sf::Vector2f wanderForce;
+
+	public:
+		const double CIRCLE_DISTANCE = 70;
+		const double CIRCLE_RADIUS = 40;
+
+	private:
+		sf::Vector2f wander();
 
 	public:
 		Unit();
@@ -33,6 +52,9 @@ namespace sbe
 		void setTarget(const sf::Vector2f& target);
 
 		void nextMode();
+		void nextTargetMode();
+
+		int getTargetMode() const;
 	};
 }
 
