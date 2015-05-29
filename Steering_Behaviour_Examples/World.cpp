@@ -1,5 +1,4 @@
 #include "World.h"
-
 #include <SFML/Graphics.hpp>
 
 sbe::World::World(std::shared_ptr<sf::RenderWindow> window) : modelManager(), viewManager(window, modelManager)
@@ -14,19 +13,8 @@ void sbe::World::run()
 	sf::Clock clock;
 	while (window->isOpen())
 	{
-		sf::Time delta = clock.restart();
-
-		sf::Event event;
-		while (window->pollEvent(event))
-		{
-			if (event.type == sf::Event::Closed)
-				window->close();
-		}
-		modelManager.update(static_cast<double>(delta.asMicroseconds()) / 1000);
-
-		window->clear();
-		viewManager.draw();
-		window->display();
+		update(static_cast<double>(clock.restart().asMicroseconds()) / 1000000);
+		draw();
 	}
 }
 
@@ -37,10 +25,18 @@ void sbe::World::init()
 
 void sbe::World::update(double delta)
 {
-
+	sf::Event event;
+	while (window->pollEvent(event))
+	{
+		if (event.type == sf::Event::Closed)
+			window->close();
+	}
+	modelManager.update(delta);
 }
 
 void sbe::World::draw()
 {
-
+	window->clear(sf::Color(60, 60, 60, 255));
+	viewManager.draw();
+	window->display();
 }

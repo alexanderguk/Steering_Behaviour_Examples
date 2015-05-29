@@ -1,13 +1,14 @@
 #include "UnitView.h"
+#include "AdvMath.h"
 
-sbe::UnitView::UnitView(std::shared_ptr<Unit> unit)
+sbe::UnitView::UnitView(std::shared_ptr<Unit> unit, sf::Sprite sprite) : unit(unit), sprite(sprite)
 {
-	this->unit = unit;
+	sprite.setOrigin(sprite.getLocalBounds().width / 2, sprite.getLocalBounds().height / 2);
 }
 
 void sbe::UnitView::draw(sf::RenderWindow& window)
 {
-	sf::CircleShape circle(10);
-	circle.setPosition(static_cast<float>(unit->getX()), static_cast<float>(unit->getY()));
-	window.draw(circle);
+	sprite.setPosition(unit->getPosition());
+	sprite.setRotation(static_cast<float>(atan2(unit->getVelocity().y, unit->getVelocity().x) * sbe::AdvMath::toDegrees));
+	window.draw(sprite);
 }

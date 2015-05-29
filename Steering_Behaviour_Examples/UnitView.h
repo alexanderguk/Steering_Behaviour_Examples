@@ -2,6 +2,7 @@
 #define UNIT_VIEW_H_
 
 #include <memory>
+#include <SFML/Graphics.hpp>
 #include "IDrawable.h"
 #include "Unit.h"
 
@@ -11,9 +12,10 @@ namespace sbe
 	{
 	private:
 		std::shared_ptr<Unit> unit;
+		sf::Sprite sprite;
 
 	public:
-		UnitView(std::shared_ptr<Unit> unit);
+		UnitView(std::shared_ptr<Unit> unit, sf::Sprite sprite);
 		void draw(sf::RenderWindow& window) override;
 	};
 }

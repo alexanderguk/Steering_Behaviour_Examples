@@ -1,18 +1,18 @@
 #ifndef GAME_OBJECT_H_
 #define GAME_OBJECT_H_
 
+#include <SFML/System.hpp>
+
 namespace sbe
 {
 	class GameObject
 	{
 	private:
-		double x;
-		double y;
+		sf::Vector2f position;
 	public:
-		double getX() const;
-		double getY() const;
-		void setX(double x);
-		void setY(double y);
+		sf::Vector2f getPosition() const;
+		void setPosition(sf::Vector2f position);
+		void setPosition(float x, float y);
 	};
 }
 

@@ -15,6 +15,7 @@ namespace sbe
 	private:
 		std::shared_ptr<sf::RenderWindow> window;
 		std::vector<std::shared_ptr<IDrawable>> drawableObjects;
+		sf::Texture texture;
 		
 	public:
 		ViewManager(std::shared_ptr<sf::RenderWindow> window, ModelManager& modelManager);

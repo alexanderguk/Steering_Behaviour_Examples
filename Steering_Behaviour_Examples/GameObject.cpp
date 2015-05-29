@@ -1,21 +1,16 @@
 #include "GameObject.h"
 
-double sbe::GameObject::getX() const
+sf::Vector2f sbe::GameObject::getPosition() const
 {
-	return x;
+	return position;
 }
 
-double sbe::GameObject::getY() const
+void sbe::GameObject::setPosition(sf::Vector2f position)
 {
-	return y;
+	this->position = position;
 }
 
-void sbe::GameObject::setX(double x)
+void sbe::GameObject::setPosition(float x, float y)
 {
-	this->x = x;
-}
-
-void sbe::GameObject::setY(double y)
-{
-	this->y = y;
+	this->position = sf::Vector2f(x, y);
 }

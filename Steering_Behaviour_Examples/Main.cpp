@@ -5,7 +5,7 @@
 
 int main()
 {
-	std::shared_ptr<sf::RenderWindow> window(new sf::RenderWindow(sf::VideoMode(200, 200), "SFML works!"));
+	std::shared_ptr<sf::RenderWindow> window(new sf::RenderWindow(sf::VideoMode(640, 480), "SFML works!"));
 	sbe::World world(window);
 
 	world.run();
