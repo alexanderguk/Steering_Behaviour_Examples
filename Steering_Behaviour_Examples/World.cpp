@@ -21,7 +21,10 @@ void sbe::World::run()
 
 void sbe::World::init()
 {
-	modelManager.addUnit();
+	for (auto i = 0; i < 10; ++i)
+	{
+		modelManager.addUnit();
+	}
 }
 
 void sbe::World::update(double delta)

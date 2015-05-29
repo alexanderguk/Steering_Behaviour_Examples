@@ -15,6 +15,8 @@ namespace sbe
 		sf::Vector2f target;
 		double mass;
 		double slowingRadius;
+		int mode;
+		const int maxMode = 1;
 
 	public:
 		Unit();
@@ -29,6 +31,8 @@ namespace sbe
 
 		sf::Vector2f getTarget() const;
 		void setTarget(const sf::Vector2f& target);
+
+		void nextMode();
 	};
 }
 

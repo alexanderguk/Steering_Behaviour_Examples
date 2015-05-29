@@ -26,6 +26,20 @@ void sbe::ControllerManager::update(sf::RenderWindow& window)
 				}
 			}
 			break;
+
+		case::sf::Event::KeyPressed:
+			if (event.key.code == sf::Keyboard::Space)
+			{
+				for (auto object : modelManager.getUpdatableObjects())
+				{
+					if (typeid(*object) == typeid(Unit))
+					{
+						auto unit = std::dynamic_pointer_cast<Unit>(object);
+						unit->nextMode();
+					}
+				}
+			}
+			break;
 		}
 	}
 }

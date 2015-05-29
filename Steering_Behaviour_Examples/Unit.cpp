@@ -1,11 +1,18 @@
+#include <random>
 #include "Unit.h"
 #include "AdvMath.h"
 
 sbe::Unit::Unit()
 {
+	mode = 0;
 	slowingRadius = 30;
 	mass = 1000;
-	setPosition(100, 100);
+
+	std::random_device rd;
+	std::mt19937_64 gen(rd());
+	std::uniform_int_distribution<int> dis;
+
+	setPosition(dis(gen) % 640, dis(gen) % 480);
 	setVelocity(sf::Vector2f(0.2f, 0.1f));
 	setMaxVelocity(50);
 }
@@ -15,13 +22,16 @@ void sbe::Unit::update(double delta)
 	sf::Vector2f desiredVelocity = sbe::AdvMath::normalize(target - position);
 	desiredVelocity.x *= maxVelocity;
 	desiredVelocity.y *= maxVelocity;
-	if (sbe::AdvMath::magnitude(target - position) < slowingRadius)
+	if (mode == 0 && sbe::AdvMath::magnitude(target - position) < slowingRadius) // seek
 	{
 		desiredVelocity.x *= sbe::AdvMath::magnitude(target - position) / slowingRadius;
 		desiredVelocity.y *= sbe::AdvMath::magnitude(target - position) / slowingRadius;
 	}
-	//desiredVelocity.x *= -1;
-	//desiredVelocity.y *= -1;
+	if (mode == 1) // flee
+	{
+		desiredVelocity.x *= -1;
+		desiredVelocity.y *= -1;
+	}
 	sf::Vector2f steering = desiredVelocity - velocity;
 	steering.x /= mass;
 	steering.y /= mass;
@@ -58,4 +68,16 @@ sf::Vector2f sbe::Unit::getTarget() const
 void sbe::Unit::setTarget(const sf::Vector2f& target)
 {
 	this->target = target;
+}
+
+void sbe::Unit::nextMode()
+{
+	if (mode == maxMode)
+	{
+		mode = 0;
+	}
+	else
+	{
+		mode++;
+	}
 }
