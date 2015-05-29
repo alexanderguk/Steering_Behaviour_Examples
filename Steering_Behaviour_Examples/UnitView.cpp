@@ -1,7 +1,7 @@
 #include "UnitView.h"
 #include "AdvMath.h"
 
-sbe::UnitView::UnitView(std::shared_ptr<Unit> unit, sf::Sprite sprite) : unit(unit), sprite(sprite)
+sbe::UnitView::UnitView(std::shared_ptr<Unit> unit, sf::Sprite newSprite) : unit(unit), sprite(newSprite)
 {
 	sprite.setOrigin(sprite.getLocalBounds().width / 2, sprite.getLocalBounds().height / 2);
 }

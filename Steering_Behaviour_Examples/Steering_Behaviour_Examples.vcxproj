@@ -75,6 +75,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AdvMath.cpp" />
+    <ClCompile Include="ControllerManager.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="ModelManager.cpp" />
@@ -85,6 +86,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AdvMath.h" />
+    <ClInclude Include="ControllerManager.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="IDrawable.h" />
     <ClInclude Include="IUpdatable.h" />

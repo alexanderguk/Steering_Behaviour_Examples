@@ -7,7 +7,7 @@ namespace sbe
 {
 	class GameObject
 	{
-	private:
+	protected:
 		sf::Vector2f position;
 	public:
 		sf::Vector2f getPosition() const;

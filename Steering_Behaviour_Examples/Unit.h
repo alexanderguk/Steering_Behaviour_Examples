@@ -12,6 +12,9 @@ namespace sbe
 	private:
 		sf::Vector2f velocity;
 		double maxVelocity;
+		sf::Vector2f target;
+		double mass;
+		double slowingRadius;
 
 	public:
 		Unit();
@@ -23,6 +26,9 @@ namespace sbe
 
 		double sbe::Unit::getMaxVelocity() const;
 		void sbe::Unit::setMaxVelocity(double maxVelocity);
+
+		sf::Vector2f getTarget() const;
+		void setTarget(const sf::Vector2f& target);
 	};
 }
 

@@ -6,6 +6,7 @@
 #include <SFML/Graphics.hpp>
 #include "ModelManager.h"
 #include "ViewManager.h"
+#include "ControllerManager.h"
 
 namespace sbe
 {
@@ -15,6 +16,7 @@ namespace sbe
 		std::shared_ptr<sf::RenderWindow> window;
 		ModelManager modelManager;
 		ViewManager viewManager;
+		ControllerManager controllerManager;
 
 	private:
 		void init();

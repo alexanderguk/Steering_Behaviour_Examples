@@ -19,6 +19,8 @@ namespace sbe
 		void update(double delta);
 		void addUnit();
 		void setSubscriber(std::function<void(std::shared_ptr<Unit>)> f);
+
+		std::vector<std::shared_ptr<IUpdatable>> getUpdatableObjects() const;
 	};
 }
 

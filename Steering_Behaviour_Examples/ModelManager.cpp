@@ -24,3 +24,8 @@ void sbe::ModelManager::setSubscriber(std::function<void(std::shared_ptr<Unit>)>
 {
 	notify = f;
 }
+
+std::vector<std::shared_ptr<sbe::IUpdatable>> sbe::ModelManager::getUpdatableObjects() const
+{
+	return updatableObjects;
+}
