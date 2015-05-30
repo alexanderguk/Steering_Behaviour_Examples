@@ -1,6 +1,11 @@
 #include "ControllerManager.h"
 
-sbe::ControllerManager::ControllerManager(ModelManager& modelManager) : modelManager(modelManager)
+#include "Wander.h"
+#include "Seek.h"
+#include "Flee.h"
+#include <memory>
+
+sbe::ControllerManager::ControllerManager(ModelManager& modelManager) : modelManager(modelManager), currentBehaviour(0)
 {
 
 }
@@ -24,8 +29,8 @@ void sbe::ControllerManager::update(sf::RenderWindow& window)
 					auto unit = std::dynamic_pointer_cast<Unit>(object);
 					if (unit->getTargetMode() == 0)
 					{
-						unit->setTarget(
-							sf::Vector2f(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y));
+						unit->setTarget(sf::Vector2f(static_cast<float>(sf::Mouse::getPosition(window).x), 
+							static_cast<float>(sf::Mouse::getPosition(window).y)));
 					}
 				}
 			}
@@ -34,12 +39,28 @@ void sbe::ControllerManager::update(sf::RenderWindow& window)
 		case::sf::Event::KeyPressed:
 			if (event.key.code == sf::Keyboard::Space)
 			{
+				currentBehaviour++;
 				for (auto object : modelManager.getUpdatableObjects())
 				{
 					if (typeid(*object) == typeid(Unit))
 					{
 						auto unit = std::dynamic_pointer_cast<Unit>(object);
-						unit->nextMode();
+						switch (currentBehaviour)
+						{
+						case 0:
+							unit->setStrategy(std::unique_ptr<Seek>(new Seek()));
+							break;
+						case 1:
+							unit->setStrategy(std::unique_ptr<Flee>(new Flee()));
+							break;
+						case 2:
+							unit->setStrategy(std::unique_ptr<Wander>(new Wander()));
+							break;
+						default:
+							currentBehaviour = 0;
+							unit->setStrategy(std::unique_ptr<Seek>(new Seek()));
+							break;
+						}
 					}
 				}
 			}

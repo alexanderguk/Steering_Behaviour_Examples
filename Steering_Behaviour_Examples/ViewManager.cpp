@@ -5,6 +5,8 @@
 sbe::ViewManager::ViewManager(std::shared_ptr<sf::RenderWindow> window, ModelManager& modelManager) : window(window)
 {
 	texture.loadFromFile("unit.png");
+	font.loadFromFile("tahoma.ttf");
+
 	modelManager.setSubscriber(std::bind(&ViewManager::addUnitView, this, std::placeholders::_1));
 }
 
@@ -14,6 +16,21 @@ void sbe::ViewManager::draw()
 	{
 		object->draw(*window.get());
 	}
+
+	if (updateFpsClock.getElapsedTime().asSeconds() >= 0.5)
+	{
+		fps = static_cast<int>(1.0 / fpsClock.restart().asSeconds());
+		updateFpsClock.restart();
+	}
+	else
+	{
+		fpsClock.restart();
+	}
+	sf::Text text;
+	text.setString(std::string("FPS: ") + std::to_string(fps));
+	text.setPosition(30, 30);
+	text.setFont(font);
+	window->draw(text);
 }
 
 void sbe::ViewManager::addUnitView(std::shared_ptr<Unit> unit)

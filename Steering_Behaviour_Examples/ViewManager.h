@@ -16,6 +16,10 @@ namespace sbe
 		std::shared_ptr<sf::RenderWindow> window;
 		std::vector<std::shared_ptr<IDrawable>> drawableObjects;
 		sf::Texture texture;
+		sf::Font font;
+		sf::Clock fpsClock;
+		sf::Clock updateFpsClock;
+		int fps;
 		
 	public:
 		ViewManager(std::shared_ptr<sf::RenderWindow> window, ModelManager& modelManager);

@@ -1,13 +1,14 @@
 #ifndef UNIT_H_
 #define UNIT_H_
 
-#include "SFML/System.hpp"
+#include <SFML/System.hpp>
 #include "GameObject.h"
 #include "IUpdatable.h"
+#include "IBehaviour.h"
 
 namespace sbe
 {
-	class Unit : public GameObject, public IUpdatable
+	class Unit : public GameObject, public IUpdatable, public IBehaviour
 	{
 	private:
 		sf::Vector2f velocity;
@@ -25,17 +26,8 @@ namespace sbe
 		const int maxTargetMode = 2;
 		sf::Clock randomTargetClock;
 
-		double wanderAngle;
-
-	public:
-		sf::Vector2f wanderForce;
-
-	public:
-		const double CIRCLE_DISTANCE = 70;
-		const double CIRCLE_RADIUS = 40;
-
 	private:
-		sf::Vector2f wander();
+		sf::Vector2f useStrategy(double delta) override;
 
 	public:
 		Unit();
@@ -44,6 +36,9 @@ namespace sbe
 
 		sf::Vector2f getVelocity() const;
 		void setVelocity(const sf::Vector2f& velocity);
+
+		double getMass() const;
+		double getSlowingRadius() const;
 
 		double sbe::Unit::getMaxVelocity() const;
 		void sbe::Unit::setMaxVelocity(double maxVelocity);
@@ -55,6 +50,8 @@ namespace sbe
 		void nextTargetMode();
 
 		int getTargetMode() const;
+
+		void setStrategy(std::unique_ptr<IStrategy> strategy) override;
 	};
 }
 

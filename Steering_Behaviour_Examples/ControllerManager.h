@@ -10,6 +10,7 @@ namespace sbe
 	{
 	private:
 		ModelManager& modelManager;
+		int currentBehaviour;
 
 	public:
 		ControllerManager(ModelManager& modelManager);

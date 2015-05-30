@@ -31,6 +31,12 @@
     <Filter Include="Header Files\Controller">
       <UniqueIdentifier>{8a591970-dfb3-4305-a1b5-320f8b37c8b4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Model\AI">
+      <UniqueIdentifier>{801e408e-a3aa-4ca2-9d5e-50a6ad3e2cc7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Model\AI">
+      <UniqueIdentifier>{6e084f93-1a9f-4ace-929c-e1587ee4e8c9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -59,6 +65,15 @@
     </ClCompile>
     <ClCompile Include="ControllerManager.cpp">
       <Filter>Source Files\Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="Seek.cpp">
+      <Filter>Source Files\Model\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="Flee.cpp">
+      <Filter>Source Files\Model\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="Wander.cpp">
+      <Filter>Source Files\Model\AI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -92,10 +107,30 @@
     <ClInclude Include="ControllerManager.h">
       <Filter>Header Files\Controller</Filter>
     </ClInclude>
+    <ClInclude Include="Seek.h">
+      <Filter>Header Files\Model\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="IBehaviour.h">
+      <Filter>Header Files\Model\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="IStrategy.h">
+      <Filter>Header Files\Model\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="Flee.h">
+      <Filter>Header Files\Model\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="Wander.h">
+      <Filter>Header Files\Model\AI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="unit.png">
       <Filter>Resource Files</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="tahoma.ttf">
+      <Filter>Resource Files</Filter>
+    </Font>
   </ItemGroup>
 </Project>
