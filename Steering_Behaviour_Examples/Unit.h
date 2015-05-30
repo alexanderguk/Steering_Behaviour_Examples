@@ -12,12 +12,12 @@ namespace sbe
 	{
 	private:
 		sf::Vector2f velocity;
-		double maxVelocity;
+		float maxVelocity;
 
 		sf::Vector2f target;
 
-		double mass;
-		double slowingRadius;
+		float mass;
+		float slowingRadius;
 
 		int mode;
 		const int maxMode = 1;
@@ -27,21 +27,21 @@ namespace sbe
 		sf::Clock randomTargetClock;
 
 	private:
-		sf::Vector2f useStrategy(double delta) override;
+		sf::Vector2f useStrategy(float delta) override;
 
 	public:
 		Unit();
 
-		void update(double delta) override;
+		void update(const sf::RenderWindow& window, float delta) override;
 
 		sf::Vector2f getVelocity() const;
 		void setVelocity(const sf::Vector2f& velocity);
 
-		double getMass() const;
-		double getSlowingRadius() const;
+		float getMass() const;
+		float getSlowingRadius() const;
 
-		double sbe::Unit::getMaxVelocity() const;
-		void sbe::Unit::setMaxVelocity(double maxVelocity);
+		float sbe::Unit::getMaxVelocity() const;
+		void sbe::Unit::setMaxVelocity(float maxVelocity);
 
 		sf::Vector2f getTarget() const;
 		void setTarget(const sf::Vector2f& target);
@@ -51,7 +51,7 @@ namespace sbe
 
 		int getTargetMode() const;
 
-		void setStrategy(std::unique_ptr<IStrategy> strategy) override;
+		void setStrategy(std::shared_ptr<IStrategy> strategy) override;
 	};
 }
 

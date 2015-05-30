@@ -1,12 +1,18 @@
 #include "ModelManager.h"
-#include "Unit.h"
-#include <memory>
 
-void sbe::ModelManager::update(double delta)
+#include <memory>
+#include "Unit.h"
+
+sbe::ModelManager::ModelManager(std::shared_ptr<sf::RenderWindow> window) : window(window)
+{
+	this->window = std::move(window);
+}
+
+void sbe::ModelManager::update(float delta)
 {
 	for (auto object : updatableObjects)
 	{
-		object->update(delta);
+		object->update(*window, delta);
 	}
 }
 

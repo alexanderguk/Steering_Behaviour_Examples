@@ -9,10 +9,19 @@ namespace sbe
 	{
 	private:
 		float wanderAngle;
+		float circleDistance = 70;
+		float circleRadius = 60;
+		float angleChange = 1.2;
+		sf::Vector2f wanderForce;
 
 	public:
 		Wander();
-		sf::Vector2f use(Unit& unit, double delta) override;
+		sf::Vector2f use(Unit& unit, float delta) override;
+
+		float getCircleDistance() const;
+		float getCircleRadius() const;
+		float getAngleChange() const;
+		sf::Vector2f getWanderForce() const;
 	};
 }
 

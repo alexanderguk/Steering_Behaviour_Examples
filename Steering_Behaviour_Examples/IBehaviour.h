@@ -9,12 +9,13 @@ namespace sbe
 	class IBehaviour
 	{
 	protected:
-		std::unique_ptr<IStrategy> strategy;
+		std::shared_ptr<IStrategy> strategy;
 
 	public:
-		virtual sf::Vector2f useStrategy(double delta) = 0;
-		virtual void setStrategy(std::unique_ptr<IStrategy> strategy) = 0;
+		virtual sf::Vector2f useStrategy(float delta) = 0;
+		virtual void setStrategy(std::shared_ptr<IStrategy> strategy) = 0;
 		virtual ~IBehaviour() {}
+		std::shared_ptr<IStrategy> getStrategy() const { return strategy; };
 	};
 }
 

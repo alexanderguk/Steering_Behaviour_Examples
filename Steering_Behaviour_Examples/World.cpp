@@ -1,10 +1,10 @@
 #include "World.h"
 #include <SFML/Graphics.hpp>
 
-sbe::World::World(std::shared_ptr<sf::RenderWindow> window) : modelManager(), viewManager(window, modelManager), 
-controllerManager(modelManager)
+sbe::World::World(std::shared_ptr<sf::RenderWindow> window) : window(window), modelManager(window), 
+viewManager(window, modelManager), controllerManager(modelManager)
 {
-	this->window = std::move(window);
+	
 }
 
 void sbe::World::run()
@@ -14,20 +14,20 @@ void sbe::World::run()
 	sf::Clock clock;
 	while (window->isOpen())
 	{
-		update(static_cast<double>(clock.restart().asMicroseconds()) / 1000000);
+		update(static_cast<float>(clock.restart().asMicroseconds()) / 1000000);
 		draw();
 	}
 }
 
 void sbe::World::init()
 {
-	for (auto i = 0; i < 10; ++i)
+	for (auto i = 0; i < 150; ++i)
 	{
 		modelManager.addUnit();
 	}
 }
 
-void sbe::World::update(double delta)
+void sbe::World::update(float delta)
 {
 	controllerManager.update(*window);
 	modelManager.update(delta);
@@ -35,7 +35,17 @@ void sbe::World::update(double delta)
 
 void sbe::World::draw()
 {
-	window->clear(sf::Color(60, 60, 60, 255));
+	window->clear(sf::Color(200, 200, 200, 255));
 	viewManager.draw();
 	window->display();
+}
+
+int sbe::World::getWidth() const
+{
+	return window->getSize().x;
+}
+
+int sbe::World::getHeight() const
+{
+	return window->getSize().y;
 }

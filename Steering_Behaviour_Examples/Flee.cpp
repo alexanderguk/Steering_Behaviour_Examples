@@ -4,7 +4,7 @@
 #include "AdvMath.h"
 #include "Unit.h"
 
-sf::Vector2f sbe::Flee::use(Unit& unit, double delta)
+sf::Vector2f sbe::Flee::use(Unit& unit, float delta)
 {
 	std::random_device rd;
 	std::mt19937_64 gen(rd());

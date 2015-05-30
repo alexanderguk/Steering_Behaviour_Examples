@@ -8,7 +8,7 @@ namespace sbe
 	class Flee : public IStrategy
 	{
 	public:
-		sf::Vector2f use(Unit& unit, double delta) override;
+		sf::Vector2f use(Unit& unit, float delta) override;
 	};
 }
 

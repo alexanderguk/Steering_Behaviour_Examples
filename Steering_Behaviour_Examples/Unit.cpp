@@ -12,10 +12,27 @@ sbe::Unit::Unit() : mode(0), targetMode(0), slowingRadius(30), mass(50), maxVelo
 	setVelocity(sf::Vector2f(0.2f, 0.1f));
 }
 
-void sbe::Unit::update(double delta)
+void sbe::Unit::update(const sf::RenderWindow& window, float delta)
 {
 	velocity = useStrategy(delta);
 	position += sf::Vector2f(velocity.x * delta, velocity.y * delta);
+
+	if (position.x < 0)
+	{
+		position.x += window.getSize().x;
+	}
+	if (position.x > window.getSize().x)
+	{
+		position.x -= window.getSize().x;
+	}
+	if (position.y < 0)
+	{
+		position.y += window.getSize().y;
+	}
+	if (position.y > window.getSize().y)
+	{
+		position.y -= window.getSize().y;
+	}
 
 	/*
 	std::random_device rd;
@@ -73,22 +90,22 @@ void sbe::Unit::setVelocity(const sf::Vector2f& velocity)
 	this->velocity = velocity;
 }
 
-double sbe::Unit::getMass() const
+float sbe::Unit::getMass() const
 {
 	return mass;
 }
 
-double sbe::Unit::getSlowingRadius() const
+float sbe::Unit::getSlowingRadius() const
 {
 	return slowingRadius;
 }
 
-double sbe::Unit::getMaxVelocity() const
+float sbe::Unit::getMaxVelocity() const
 {
 	return maxVelocity;
 }
 
-void sbe::Unit::setMaxVelocity(double maxVelocity)
+void sbe::Unit::setMaxVelocity(float maxVelocity)
 {
 	this->maxVelocity = maxVelocity;
 }
@@ -132,7 +149,7 @@ int sbe::Unit::getTargetMode() const
 	return targetMode;
 }
 
-sf::Vector2f sbe::Unit::useStrategy(double delta)
+sf::Vector2f sbe::Unit::useStrategy(float delta)
 {
 	if (strategy != nullptr)
 	{
@@ -141,7 +158,7 @@ sf::Vector2f sbe::Unit::useStrategy(double delta)
 	return sf::Vector2f(0, 0);
 }
 
-void sbe::Unit::setStrategy(std::unique_ptr<IStrategy> strategy)
+void sbe::Unit::setStrategy(std::shared_ptr<IStrategy> strategy)
 {
-	this->strategy = std::move(strategy);
+	this->strategy = strategy;
 }

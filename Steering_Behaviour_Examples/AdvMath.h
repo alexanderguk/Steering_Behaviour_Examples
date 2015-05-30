@@ -13,6 +13,7 @@ namespace sbe
 		static const float toDegrees;
 
 		static sf::Vector2f normalize(sf::Vector2f v);
+		static sf::Vector2f multiply(sf::Vector2f v, float n);
 		static float magnitude(sf::Vector2f v);
 	};
 }

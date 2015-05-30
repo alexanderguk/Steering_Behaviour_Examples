@@ -20,12 +20,15 @@ namespace sbe
 
 	private:
 		void init();
-		void update(double delta);
+		void update(float delta);
 		void draw();
 
 	public:
 		World(std::shared_ptr<sf::RenderWindow> window);
 		void run();
+
+		int getWidth() const;
+		int getHeight() const;
 	};
 }
 
