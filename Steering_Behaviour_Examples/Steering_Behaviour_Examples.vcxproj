@@ -76,6 +76,7 @@
   <ItemGroup>
     <ClCompile Include="AdvMath.cpp" />
     <ClCompile Include="ControllerManager.cpp" />
+    <ClCompile Include="DemoMode.cpp" />
     <ClCompile Include="Evade.cpp" />
     <ClCompile Include="Flee.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -91,6 +92,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AdvMath.h" />
+    <ClInclude Include="DemoMode.h" />
     <ClInclude Include="Evade.h" />
     <ClInclude Include="Flee.h" />
     <ClInclude Include="IBehaviour.h" />

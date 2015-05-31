@@ -19,13 +19,17 @@ namespace sbe
 
 	public:
 		ModelManager(std::shared_ptr<sf::RenderWindow> window);
+
 		void update(float delta);
+
 		std::shared_ptr<Unit> addUnit();
 		std::shared_ptr<Unit> addUnit(float maxVelocity, float mass);
 		void addUnit(int n);
-		void deleteUnit(std::shared_ptr<Unit> unit);
+		void deleteUnit();
 		void deleteAllUnits();
+
 		void setSubscriber(std::function<void(std::shared_ptr<Unit>, bool)> f);
+
 		std::vector<std::shared_ptr<IUpdatable>> getUpdatableObjects() const;
 	};
 }

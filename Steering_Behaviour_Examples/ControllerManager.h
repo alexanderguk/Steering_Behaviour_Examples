@@ -4,13 +4,14 @@
 #include <SFML/Graphics.hpp>
 #include "ModelManager.h"
 #include "ViewManager.h"
+#include "DemoMode.h"
 
 namespace sbe
 {
 	class ControllerManager
 	{
 	private:
-		int currentBehaviour;
+		DemoMode currentBehaviour;
 
 	public:
 		ControllerManager();
@@ -20,11 +21,11 @@ namespace sbe
 		void onMouseMoved(sf::Event ev, sf::RenderWindow& window, ModelManager& modelManager) const;
 		void onKeyPressed(sf::Event ev, ModelManager& modelManager, ViewManager& viewManager);
 
-		void seek(ModelManager& modelManager, ViewManager& viewManager) const;
-		void flee(ModelManager& modelManager, ViewManager& viewManager) const;
-		void wander(ModelManager& modelManager, ViewManager& viewManager) const;
-		void pursuit(ModelManager& modelManager, ViewManager& viewManager) const;
-		void evade(ModelManager& modelManager, ViewManager& viewManager) const;
+		void seek(ModelManager& modelManager) const;
+		void flee(ModelManager& modelManager) const;
+		void wander(ModelManager& modelManager) const;
+		void pursuit(ModelManager& modelManager) const;
+		void evade(ModelManager& modelManager) const;
 	};
 }
 

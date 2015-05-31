@@ -40,9 +40,19 @@ void sbe::ModelManager::addUnit(int n)
 	}
 }
 
-void sbe::ModelManager::deleteUnit(std::shared_ptr<Unit> unit)
+void sbe::ModelManager::deleteUnit()
 {
-	notify(unit, false);
+	auto i = std::begin(updatableObjects);
+	while (i != std::end(updatableObjects))
+	{
+		if (typeid(**i) == typeid(Unit))
+		{
+			auto unit = std::dynamic_pointer_cast<Unit>(*i);
+			notify(unit, false);
+			updatableObjects.erase(i);
+			break;
+		}
+	}
 }
 
 void sbe::ModelManager::deleteAllUnits()

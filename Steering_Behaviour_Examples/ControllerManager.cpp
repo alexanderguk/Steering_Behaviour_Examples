@@ -7,7 +7,7 @@
 #include "Evade.h"
 #include <memory>
 
-sbe::ControllerManager::ControllerManager() : currentBehaviour(0)
+sbe::ControllerManager::ControllerManager()
 {
 
 }
@@ -63,47 +63,91 @@ void sbe::ControllerManager::onKeyPressed(sf::Event ev, ModelManager& modelManag
 	if (ev.key.code == sf::Keyboard::Space)
 	{
 		currentBehaviour++;
-		switch (currentBehaviour)
+		if (currentBehaviour.getCurrentDemoName() == "Seek")
 		{
-		case 0:
-			seek(modelManager, viewManager);
-			break;
-		case 1:
-			flee(modelManager, viewManager);
-			break;
-		case 2:
-			wander(modelManager, viewManager);
-			break;
-		case 3:
-			pursuit(modelManager, viewManager);
-			break;
-		case 4:
-			evade(modelManager, viewManager);
-			break;
-		default:
-			currentBehaviour = 0;
-			seek(modelManager, viewManager);
-			break;
+			seek(modelManager);
+		}
+		else if (currentBehaviour.getCurrentDemoName() == "Flee")
+		{
+			flee(modelManager);
+		}
+		else if (currentBehaviour.getCurrentDemoName() == "Wander")
+		{
+			wander(modelManager);
+		}
+		else if (currentBehaviour.getCurrentDemoName() == "Pursuit")
+		{
+			pursuit(modelManager);
+		}
+		else if (currentBehaviour.getCurrentDemoName() == "Evade")
+		{
+			evade(modelManager);
+		}
+		viewManager.setDemoName(currentBehaviour.getCurrentDemoName());
+	}
+	else if (ev.key.code == sf::Keyboard::Add)
+	{
+		if (currentBehaviour.getCurrentDemoName() == "Seek")
+		{
+			modelManager.addUnit()->setStrategy(std::shared_ptr<Seek>(new Seek()));
+		}
+		else if (currentBehaviour.getCurrentDemoName() == "Flee")
+		{
+			modelManager.addUnit()->setStrategy(std::shared_ptr<Flee>(new Flee()));
+		}
+		else if (currentBehaviour.getCurrentDemoName() == "Wander")
+		{
+			modelManager.addUnit()->setStrategy(std::shared_ptr<Wander>(new Wander()));
+		}
+		else if (currentBehaviour.getCurrentDemoName() == "Pursuit")
+		{
+
+		}
+		else if (currentBehaviour.getCurrentDemoName() == "Evade")
+		{
+
+		}
+	}
+	else if (ev.key.code == sf::Keyboard::Subtract)
+	{
+		if (currentBehaviour.getCurrentDemoName() == "Seek")
+		{
+			modelManager.deleteUnit();
+		}
+		else if (currentBehaviour.getCurrentDemoName() == "Flee")
+		{
+			modelManager.deleteUnit();
+		}
+		else if (currentBehaviour.getCurrentDemoName() == "Wander")
+		{
+			modelManager.deleteUnit();
+		}
+		else if (currentBehaviour.getCurrentDemoName() == "Pursuit")
+		{
+
+		}
+		else if (currentBehaviour.getCurrentDemoName() == "Evade")
+		{
+
 		}
 	}
 }
 
-void sbe::ControllerManager::seek(ModelManager& modelManager, ViewManager& viewManager) const
+void sbe::ControllerManager::seek(ModelManager& modelManager) const
 {
 	modelManager.deleteAllUnits();
 	modelManager.addUnit(150);
 	for (auto object : modelManager.getUpdatableObjects())
-	{
+	{	
 		if (typeid(*object) == typeid(Unit))
 		{
 			auto unit = std::dynamic_pointer_cast<Unit>(object);
 			unit->setStrategy(std::shared_ptr<Seek>(new Seek()));
 		}
 	}
-	viewManager.setDemoName("Seek");
 }
 
-void sbe::ControllerManager::flee(ModelManager& modelManager, ViewManager& viewManager) const
+void sbe::ControllerManager::flee(ModelManager& modelManager) const
 {
 	modelManager.deleteAllUnits();
 	modelManager.addUnit(150);
@@ -115,10 +159,9 @@ void sbe::ControllerManager::flee(ModelManager& modelManager, ViewManager& viewM
 			unit->setStrategy(std::shared_ptr<Flee>(new Flee()));
 		}
 	}
-	viewManager.setDemoName("Flee");
 }
 
-void sbe::ControllerManager::wander(ModelManager& modelManager, ViewManager& viewManager) const
+void sbe::ControllerManager::wander(ModelManager& modelManager) const
 {
 	modelManager.deleteAllUnits();
 	modelManager.addUnit(150);
@@ -130,19 +173,17 @@ void sbe::ControllerManager::wander(ModelManager& modelManager, ViewManager& vie
 			unit->setStrategy(std::shared_ptr<Wander>(new Wander()));
 		}
 	}
-	viewManager.setDemoName("Wander");
 }
 
-void sbe::ControllerManager::pursuit(ModelManager& modelManager, ViewManager& viewManager) const
+void sbe::ControllerManager::pursuit(ModelManager& modelManager) const
 {
 	modelManager.deleteAllUnits();
 	auto targetUnit = modelManager.addUnit(150, 50);
 	targetUnit->setStrategy(std::shared_ptr<Seek>(new Seek()));
 	modelManager.addUnit(100, 50)->setStrategy(std::shared_ptr<Pursuit>(new Pursuit(targetUnit)));
-	viewManager.setDemoName("Pursuit");
 }
 
-void sbe::ControllerManager::evade(ModelManager& modelManager, ViewManager& viewManager) const
+void sbe::ControllerManager::evade(ModelManager& modelManager) const
 {
 	modelManager.deleteAllUnits();
 	auto targetUnit = modelManager.addUnit(100, 50);
@@ -150,6 +191,5 @@ void sbe::ControllerManager::evade(ModelManager& modelManager, ViewManager& view
 	for (auto i = 0; i < 10; ++i)
 	{
 		modelManager.addUnit(100, 50)->setStrategy(std::shared_ptr<Evade>(new Evade(targetUnit)));
-		viewManager.setDemoName("Evade");
 	}
 }

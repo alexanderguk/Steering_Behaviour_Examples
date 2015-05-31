@@ -32,7 +32,9 @@ void sbe::ViewManager::draw()
 		std::string("FPS: ") + std::to_string(fps) +
 		std::string("\nDemo: ") + demoName +
 		std::string("\nUnits: ") + std::to_string(drawableObjects.size()) +
-		std::string("\nNext mode: Space")
+		std::string("\nNext mode: Space") +
+		std::string("\nAdd unit: +") +
+		std::string("\nDelete unit: -")
 		);
 	text.setPosition(30, 30);
 	text.setFont(font);

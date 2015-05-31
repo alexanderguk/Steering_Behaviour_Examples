@@ -81,6 +81,9 @@
     <ClCompile Include="Evade.cpp">
       <Filter>Source Files\Model\AI</Filter>
     </ClCompile>
+    <ClCompile Include="DemoMode.cpp">
+      <Filter>Source Files\Controller</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="World.h">
@@ -133,6 +136,9 @@
     </ClInclude>
     <ClInclude Include="Evade.h">
       <Filter>Header Files\Model\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="DemoMode.h">
+      <Filter>Header Files\Controller</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
