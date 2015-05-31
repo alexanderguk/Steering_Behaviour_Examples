@@ -5,7 +5,7 @@
 
 sbe::ModelManager::ModelManager(std::shared_ptr<sf::RenderWindow> window) : window(window)
 {
-	this->window = std::move(window);
+	this->window = window;
 }
 
 void sbe::ModelManager::update(float delta)
@@ -16,17 +16,49 @@ void sbe::ModelManager::update(float delta)
 	}
 }
 
-void sbe::ModelManager::addUnit()
+std::shared_ptr<sbe::Unit> sbe::ModelManager::addUnit(float maxVelocity, float mass)
 {
-	std::shared_ptr<Unit> unit(new Unit());
+	std::shared_ptr<Unit> unit(new Unit(maxVelocity, mass));
 	updatableObjects.push_back(unit);
 	if (notify != nullptr)
 	{
-		notify(unit);
+		notify(unit, true);
+	}
+	return unit;
+}
+
+std::shared_ptr<sbe::Unit> sbe::ModelManager::addUnit()
+{
+	return addUnit(50, 50);
+}
+
+void sbe::ModelManager::addUnit(int n)
+{
+	for (auto i = 0; i < n; ++i)
+	{
+		addUnit();
 	}
 }
 
-void sbe::ModelManager::setSubscriber(std::function<void(std::shared_ptr<Unit>)> f)
+void sbe::ModelManager::deleteUnit(std::shared_ptr<Unit> unit)
+{
+	notify(unit, false);
+}
+
+void sbe::ModelManager::deleteAllUnits()
+{
+	for (auto object : updatableObjects)
+	{
+		if (typeid(*object) == typeid(Unit))
+		{
+			auto unit = std::dynamic_pointer_cast<Unit>(object);
+			notify(unit, false);
+		}
+	}
+	updatableObjects.clear();
+}
+
+void sbe::ModelManager::setSubscriber(std::function<void(std::shared_ptr<Unit>, bool)> f)
 {
 	notify = f;
 }

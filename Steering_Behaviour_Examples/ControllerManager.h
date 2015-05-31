@@ -15,6 +15,16 @@ namespace sbe
 	public:
 		ControllerManager(ModelManager& modelManager);
 		void update(sf::RenderWindow& window);
+
+	private:
+		void onMouseMoved(sf::Event ev, sf::RenderWindow& window) const;
+		void onKeyPressed(sf::Event ev);
+
+		void seek() const;
+		void flee() const;
+		void wander() const;
+		void pursuit() const;
+		void evade() const;
 	};
 }
 

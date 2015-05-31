@@ -17,6 +17,7 @@ namespace sbe
 	public:
 		UnitView(std::shared_ptr<Unit> unit, sf::Sprite sprite);
 		void draw(sf::RenderWindow& window) override;
+		std::shared_ptr<Unit> getUnit() const;
 	};
 }
 

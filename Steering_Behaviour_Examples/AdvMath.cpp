@@ -1,6 +1,6 @@
 #include "AdvMath.h"
 
-const float sbe::AdvMath::toDegrees = 180 / M_PI;
+const float sbe::AdvMath::toDegrees = static_cast<float>(180 / M_PI);
 
 sf::Vector2f sbe::AdvMath::normalize(sf::Vector2f v)
 {

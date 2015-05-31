@@ -12,10 +12,10 @@ namespace sbe
 		std::shared_ptr<IStrategy> strategy;
 
 	public:
-		virtual sf::Vector2f useStrategy(float delta) = 0;
+		virtual sf::Vector2f useStrategy() = 0;
 		virtual void setStrategy(std::shared_ptr<IStrategy> strategy) = 0;
 		virtual ~IBehaviour() {}
-		std::shared_ptr<IStrategy> getStrategy() const { return strategy; };
+		virtual std::shared_ptr<IStrategy> getStrategy() const { return strategy; };
 	};
 }
 

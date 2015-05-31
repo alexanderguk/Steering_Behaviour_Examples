@@ -14,7 +14,7 @@ sbe::Wander::Wander()
 	wanderAngle = static_cast<float>(disDouble(gen) * 2 * M_PI);
 }
 
-sf::Vector2f sbe::Wander::use(Unit& unit, float delta)
+sf::Vector2f sbe::Wander::use(Unit& unit)
 {
 	std::random_device rd;
 	std::mt19937_64 gen(rd());
@@ -27,11 +27,10 @@ sf::Vector2f sbe::Wander::use(Unit& unit, float delta)
 	displacement = sbe::AdvMath::multiply(displacement, circleRadius);
 
 	wanderAngle += (disDouble(gen) * angleChange) - angleChange / 2;
-	//std::cout << wanderAngle << std::endl;
 
 	sf::Vector2f wanderForce = circleCenter + displacement;
 	this->wanderForce = wanderForce;
-	wanderForce = sbe::AdvMath::multiply(wanderForce, 1.0 / unit.getMass());
+	wanderForce = sbe::AdvMath::multiply(wanderForce, 1.0f / unit.getMass());
 
 	sf::Vector2f newVelocity = unit.getVelocity() + wanderForce;
 	if (sbe::AdvMath::magnitude(newVelocity) > unit.getMaxVelocity())

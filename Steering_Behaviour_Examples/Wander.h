@@ -11,12 +11,12 @@ namespace sbe
 		float wanderAngle;
 		float circleDistance = 70;
 		float circleRadius = 60;
-		float angleChange = 1.2;
+		float angleChange = 1.2f;
 		sf::Vector2f wanderForce;
 
 	public:
 		Wander();
-		sf::Vector2f use(Unit& unit, float delta) override;
+		sf::Vector2f use(Unit& unit) override;
 
 		float getCircleDistance() const;
 		float getCircleRadius() const;

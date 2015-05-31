@@ -7,7 +7,7 @@ sbe::ViewManager::ViewManager(std::shared_ptr<sf::RenderWindow> window, ModelMan
 	texture.loadFromFile("unit.png");
 	font.loadFromFile("tahoma.ttf");
 
-	modelManager.setSubscriber(std::bind(&ViewManager::addUnitView, this, std::placeholders::_1));
+	modelManager.setSubscriber(std::bind(&ViewManager::updateUnitView, this, std::placeholders::_1, std::placeholders::_2));
 }
 
 void sbe::ViewManager::draw()
@@ -33,8 +33,28 @@ void sbe::ViewManager::draw()
 	window->draw(text);
 }
 
-void sbe::ViewManager::addUnitView(std::shared_ptr<Unit> unit)
+void sbe::ViewManager::updateUnitView(std::shared_ptr<Unit> unit, bool isAdded)
 {
-	std::shared_ptr<UnitView> unitView(new UnitView(unit, sf::Sprite(texture, sf::IntRect(0, 0, 32, 32))));
-	drawableObjects.push_back(unitView);
+	if (isAdded)
+	{
+		std::shared_ptr<UnitView> unitView(new UnitView(unit, sf::Sprite(texture, sf::IntRect(0, 0, 32, 32))));
+		drawableObjects.push_back(unitView);
+	}
+	else
+	{
+		drawableObjects.erase(std::remove_if(drawableObjects.begin(), drawableObjects.end(),
+			[&unit](std::shared_ptr<IDrawable>& object)
+		{
+			if (typeid(*object) == typeid(UnitView))
+			{
+				auto unitView = std::dynamic_pointer_cast<UnitView>(object);
+				if (unitView->getUnit().get() == unit.get())
+				{
+					return true;
+				}
+			}
+			return false;
+		}
+		), drawableObjects.end());
+	}
 }

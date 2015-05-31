@@ -10,7 +10,7 @@ namespace sbe
 	class IStrategy
 	{
 	public:
-		virtual sf::Vector2f use(Unit& unit, float delta) = 0;
+		virtual sf::Vector2f use(Unit& unit) = 0;
 		virtual ~IStrategy() {}
 	};
 }

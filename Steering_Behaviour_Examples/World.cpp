@@ -1,4 +1,5 @@
 #include "World.h"
+#include "Seek.h"
 #include <SFML/Graphics.hpp>
 
 sbe::World::World(std::shared_ptr<sf::RenderWindow> window) : window(window), modelManager(window), 
@@ -21,9 +22,15 @@ void sbe::World::run()
 
 void sbe::World::init()
 {
-	for (auto i = 0; i < 150; ++i)
+	modelManager.deleteAllUnits();
+	modelManager.addUnit(150);
+	for (auto object : modelManager.getUpdatableObjects())
 	{
-		modelManager.addUnit();
+		if (typeid(*object) == typeid(Unit))
+		{
+			auto unit = std::dynamic_pointer_cast<Unit>(object);
+			unit->setStrategy(std::shared_ptr<Seek>(new Seek()));
+		}
 	}
 }
 

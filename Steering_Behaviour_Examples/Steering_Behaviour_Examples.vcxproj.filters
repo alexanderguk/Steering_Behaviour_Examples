@@ -75,6 +75,12 @@
     <ClCompile Include="Wander.cpp">
       <Filter>Source Files\Model\AI</Filter>
     </ClCompile>
+    <ClCompile Include="Pursuit.cpp">
+      <Filter>Source Files\Model\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="Evade.cpp">
+      <Filter>Source Files\Model\AI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="World.h">
@@ -120,6 +126,12 @@
       <Filter>Header Files\Model\AI</Filter>
     </ClInclude>
     <ClInclude Include="Wander.h">
+      <Filter>Header Files\Model\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="Pursuit.h">
+      <Filter>Header Files\Model\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="Evade.h">
       <Filter>Header Files\Model\AI</Filter>
     </ClInclude>
   </ItemGroup>

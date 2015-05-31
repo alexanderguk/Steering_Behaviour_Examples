@@ -45,3 +45,8 @@ void sbe::UnitView::draw(sf::RenderWindow& window)
 	window.draw(line, 2, sf::Lines);
 	*/
 }
+
+std::shared_ptr<sbe::Unit> sbe::UnitView::getUnit() const
+{
+	return unit;
+}

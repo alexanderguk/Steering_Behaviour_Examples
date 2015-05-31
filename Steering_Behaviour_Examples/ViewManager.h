@@ -24,7 +24,7 @@ namespace sbe
 	public:
 		ViewManager(std::shared_ptr<sf::RenderWindow> window, ModelManager& modelManager);
 		void draw();
-		void addUnitView(std::shared_ptr<Unit> unit);
+		void updateUnitView(std::shared_ptr<Unit> unit, bool isAdded);
 	};
 }
 
