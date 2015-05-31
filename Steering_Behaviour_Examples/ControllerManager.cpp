@@ -7,12 +7,12 @@
 #include "Evade.h"
 #include <memory>
 
-sbe::ControllerManager::ControllerManager(ModelManager& modelManager) : modelManager(modelManager), currentBehaviour(0)
+sbe::ControllerManager::ControllerManager() : currentBehaviour(0)
 {
 
 }
 
-void sbe::ControllerManager::update(sf::RenderWindow& window)
+void sbe::ControllerManager::update(sf::RenderWindow& window, ModelManager& modelManager, ViewManager& viewManager)
 {
 	sf::Event ev;
 	while (window.pollEvent(ev))
@@ -23,16 +23,16 @@ void sbe::ControllerManager::update(sf::RenderWindow& window)
 			window.close();
 			break;
 		case sf::Event::MouseMoved:
-			onMouseMoved(ev, window);
+			onMouseMoved(ev, window, modelManager);
 			break;
 		case::sf::Event::KeyPressed:
-			onKeyPressed(ev);
+			onKeyPressed(ev, modelManager, viewManager);
 			break;
 		}
 	}
 }
 
-void sbe::ControllerManager::onMouseMoved(sf::Event ev, sf::RenderWindow& window) const
+void sbe::ControllerManager::onMouseMoved(sf::Event ev, sf::RenderWindow& window, ModelManager& modelManager) const
 {
 	for (auto object : modelManager.getUpdatableObjects())
 	{
@@ -58,7 +58,7 @@ void sbe::ControllerManager::onMouseMoved(sf::Event ev, sf::RenderWindow& window
 	}
 }
 
-void sbe::ControllerManager::onKeyPressed(sf::Event ev)
+void sbe::ControllerManager::onKeyPressed(sf::Event ev, ModelManager& modelManager, ViewManager& viewManager)
 {
 	if (ev.key.code == sf::Keyboard::Space)
 	{
@@ -66,29 +66,29 @@ void sbe::ControllerManager::onKeyPressed(sf::Event ev)
 		switch (currentBehaviour)
 		{
 		case 0:
-			seek();
+			seek(modelManager, viewManager);
 			break;
 		case 1:
-			flee();
+			flee(modelManager, viewManager);
 			break;
 		case 2:
-			wander();
+			wander(modelManager, viewManager);
 			break;
 		case 3:
-			pursuit();
+			pursuit(modelManager, viewManager);
 			break;
 		case 4:
-			evade();
+			evade(modelManager, viewManager);
 			break;
 		default:
 			currentBehaviour = 0;
-			seek();
+			seek(modelManager, viewManager);
 			break;
 		}
 	}
 }
 
-void sbe::ControllerManager::seek() const
+void sbe::ControllerManager::seek(ModelManager& modelManager, ViewManager& viewManager) const
 {
 	modelManager.deleteAllUnits();
 	modelManager.addUnit(150);
@@ -100,9 +100,10 @@ void sbe::ControllerManager::seek() const
 			unit->setStrategy(std::shared_ptr<Seek>(new Seek()));
 		}
 	}
+	viewManager.setDemoName("Seek");
 }
 
-void sbe::ControllerManager::flee() const
+void sbe::ControllerManager::flee(ModelManager& modelManager, ViewManager& viewManager) const
 {
 	modelManager.deleteAllUnits();
 	modelManager.addUnit(150);
@@ -114,9 +115,10 @@ void sbe::ControllerManager::flee() const
 			unit->setStrategy(std::shared_ptr<Flee>(new Flee()));
 		}
 	}
+	viewManager.setDemoName("Flee");
 }
 
-void sbe::ControllerManager::wander() const
+void sbe::ControllerManager::wander(ModelManager& modelManager, ViewManager& viewManager) const
 {
 	modelManager.deleteAllUnits();
 	modelManager.addUnit(150);
@@ -128,17 +130,19 @@ void sbe::ControllerManager::wander() const
 			unit->setStrategy(std::shared_ptr<Wander>(new Wander()));
 		}
 	}
+	viewManager.setDemoName("Wander");
 }
 
-void sbe::ControllerManager::pursuit() const
+void sbe::ControllerManager::pursuit(ModelManager& modelManager, ViewManager& viewManager) const
 {
 	modelManager.deleteAllUnits();
 	auto targetUnit = modelManager.addUnit(150, 50);
 	targetUnit->setStrategy(std::shared_ptr<Seek>(new Seek()));
 	modelManager.addUnit(100, 50)->setStrategy(std::shared_ptr<Pursuit>(new Pursuit(targetUnit)));
+	viewManager.setDemoName("Pursuit");
 }
 
-void sbe::ControllerManager::evade() const
+void sbe::ControllerManager::evade(ModelManager& modelManager, ViewManager& viewManager) const
 {
 	modelManager.deleteAllUnits();
 	auto targetUnit = modelManager.addUnit(100, 50);
@@ -146,5 +150,6 @@ void sbe::ControllerManager::evade() const
 	for (auto i = 0; i < 10; ++i)
 	{
 		modelManager.addUnit(100, 50)->setStrategy(std::shared_ptr<Evade>(new Evade(targetUnit)));
+		viewManager.setDemoName("Evade");
 	}
 }

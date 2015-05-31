@@ -14,7 +14,7 @@ sbe::Unit::Unit(float maxVelocity, float mass) : maxVelocity(maxVelocity), mass(
 	std::mt19937_64 gen(rd());
 	std::uniform_int_distribution<int> dis;
 
-	setPosition(static_cast<float>(dis(gen) % 640), static_cast<float>(dis(gen) % 480));
+	setPosition(static_cast<float>(dis(gen) % 1280), static_cast<float>(dis(gen) % 768));
 	setVelocity(sf::Vector2f(0.2f, 0.1f));
 }
 

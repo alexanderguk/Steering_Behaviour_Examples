@@ -27,7 +27,13 @@ void sbe::ViewManager::draw()
 		fpsClock.restart();
 	}
 	sf::Text text;
-	text.setString(std::string("FPS: ") + std::to_string(fps));
+	text.setScale(0.5, 0.5);
+	text.setString(
+		std::string("FPS: ") + std::to_string(fps) +
+		std::string("\nDemo: ") + demoName +
+		std::string("\nUnits: ") + std::to_string(drawableObjects.size()) +
+		std::string("\nNext mode: Space")
+		);
 	text.setPosition(30, 30);
 	text.setFont(font);
 	window->draw(text);
@@ -57,4 +63,9 @@ void sbe::ViewManager::updateUnitView(std::shared_ptr<Unit> unit, bool isAdded)
 		}
 		), drawableObjects.end());
 	}
+}
+
+void sbe::ViewManager::setDemoName(std::string demoName)
+{
+	this->demoName = demoName;
 }

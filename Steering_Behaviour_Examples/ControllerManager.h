@@ -3,28 +3,28 @@
 
 #include <SFML/Graphics.hpp>
 #include "ModelManager.h"
+#include "ViewManager.h"
 
 namespace sbe
 {
 	class ControllerManager
 	{
 	private:
-		ModelManager& modelManager;
 		int currentBehaviour;
 
 	public:
-		ControllerManager(ModelManager& modelManager);
-		void update(sf::RenderWindow& window);
+		ControllerManager();
+		void update(sf::RenderWindow& window, ModelManager& modelManager, ViewManager& viewManager);
 
 	private:
-		void onMouseMoved(sf::Event ev, sf::RenderWindow& window) const;
-		void onKeyPressed(sf::Event ev);
+		void onMouseMoved(sf::Event ev, sf::RenderWindow& window, ModelManager& modelManager) const;
+		void onKeyPressed(sf::Event ev, ModelManager& modelManager, ViewManager& viewManager);
 
-		void seek() const;
-		void flee() const;
-		void wander() const;
-		void pursuit() const;
-		void evade() const;
+		void seek(ModelManager& modelManager, ViewManager& viewManager) const;
+		void flee(ModelManager& modelManager, ViewManager& viewManager) const;
+		void wander(ModelManager& modelManager, ViewManager& viewManager) const;
+		void pursuit(ModelManager& modelManager, ViewManager& viewManager) const;
+		void evade(ModelManager& modelManager, ViewManager& viewManager) const;
 	};
 }
 

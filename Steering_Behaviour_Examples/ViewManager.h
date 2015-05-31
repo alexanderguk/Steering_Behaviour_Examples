@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <memory>
+#include <string>
 #include <SFML/Graphics.hpp>
 #include "IDrawable.h"
 #include "Unit.h"
@@ -20,11 +21,13 @@ namespace sbe
 		sf::Clock fpsClock;
 		sf::Clock updateFpsClock;
 		int fps;
+		std::string demoName;
 		
 	public:
 		ViewManager(std::shared_ptr<sf::RenderWindow> window, ModelManager& modelManager);
 		void draw();
 		void updateUnitView(std::shared_ptr<Unit> unit, bool isAdded);
+		void setDemoName(std::string demoName);
 	};
 }
 

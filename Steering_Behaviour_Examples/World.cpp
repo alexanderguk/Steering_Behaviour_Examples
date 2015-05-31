@@ -3,7 +3,7 @@
 #include <SFML/Graphics.hpp>
 
 sbe::World::World(std::shared_ptr<sf::RenderWindow> window) : window(window), modelManager(window), 
-viewManager(window, modelManager), controllerManager(modelManager)
+viewManager(window, modelManager)
 {
 	
 }
@@ -36,7 +36,7 @@ void sbe::World::init()
 
 void sbe::World::update(float delta)
 {
-	controllerManager.update(*window);
+	controllerManager.update(*window, modelManager, viewManager);
 	modelManager.update(delta);
 }
 
